@@ -52,9 +52,8 @@ import {
   updateInvoice,
   updateInvoiceStatus,
   deleteInvoice,
-  invoiceSchema,
-  type InvoiceFormData,
 } from "@/lib/actions/invoices";
+import { invoiceSchema, type InvoiceFormData } from "@/lib/schemas/invoices";
 
 type InvoiceStatus = "DRAFT" | "SENT" | "PAID" | "OVERDUE" | "CANCELLED";
 

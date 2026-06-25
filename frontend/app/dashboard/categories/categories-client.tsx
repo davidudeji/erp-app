@@ -45,9 +45,8 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
-  categorySchema,
-  type CategoryFormData,
 } from "@/lib/actions/categories";
+import { categorySchema, type CategoryFormData } from "@/lib/schemas/categories";
 
 type Category = {
   id: string;

@@ -198,7 +198,7 @@ export default function DashboardHeader({
                 setNotifOpen(false);
                 setProfileOpen(false);
               }}
-              className="hidden sm:flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-2 text-xs font-semibold text-white hover:opacity-90 transition-opacity shadow-lg"
+              className="hidden sm:flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-2 text-xs font-semibold text-white hover:opacity-90 transition-opacity shadow-lg cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5" />
               Quick Actions
@@ -216,9 +216,9 @@ export default function DashboardHeader({
                         className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/70 hover:bg-white/8 hover:text-white transition-colors"
                       >
                         <a.icon
-                          className={cn("h-4 w-4 flex-shrink-0", a.color)}
+                          className={cn("h-4 w-4 flex-shrink-0 cursor-pointer", a.color)}
                         />
-                        <span className="flex-1 text-left text-black">
+                        <span className="flex-1 text-left text-black cursor-pointers">
                           {a.label}
                         </span>
                         <span className="text-[10px] text-black">

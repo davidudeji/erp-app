@@ -1,29 +1,10 @@
 "use server";
 
-import { z } from "zod";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { db } from "@/lib/db";
-
-export const productSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string().optional(),
-  price: z.number().min(0, "Price must be non-negative"),
-  stock: z.number().int().min(0, "Stock must be non-negative"),
-  sku: z.string().optional(),
-  categoryId: z.string().optional(),
-});
-
-export type ProductFormData = z.infer<typeof productSchema>;
-
-interface GetProductsParams {
-  page?: number;
-  pageSize?: number;
-  search?: string;
-  categoryId?: string;
-  dateFrom?: string;
-  dateTo?: string;
-}
+import { productSchema, type ProductFormData } from "@/lib/schemas/products";
+import type { GetProductsParams } from "@/lib/types/products";
 
 export async function getProducts({
   page = 1,
@@ -89,7 +70,7 @@ export async function updateProduct(id: string, data: ProductFormData) {
   if (!session?.user) throw new Error("Unauthorized");
 
   const parsed = productSchema.parse(data);
-  return db.product.update({ data: { ...parsed, id } });
+  return db.product.update({ where: { id }, data: parsed });
 }
 
 export async function deleteProduct(id: string) {

@@ -51,9 +51,8 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  productSchema,
-  type ProductFormData,
 } from "@/lib/actions/products";
+import { productSchema, type ProductFormData } from "@/lib/schemas/products";
 
 type Category = { id: string; name: string };
 type Product = {

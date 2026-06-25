@@ -1,34 +1,10 @@
 "use server";
 
-import { z } from "zod";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { db } from "@/lib/db";
-
-const invoiceItemSchema = z.object({
-  description: z.string().min(1, "Description is required"),
-  quantity: z.number().int().min(1, "Quantity must be at least 1"),
-  unitPrice: z.number().min(0, "Unit price must be non-negative"),
-});
-
-export const invoiceSchema = z.object({
-  customerName: z.string().min(1, "Customer name is required"),
-  customerEmail: z.string().email("Invalid email").or(z.literal("")),
-  notes: z.string().optional(),
-  dueDate: z.string().optional(),
-  items: z.array(invoiceItemSchema).min(1, "At least one item is required"),
-});
-
-export type InvoiceFormData = z.infer<typeof invoiceSchema>;
-
-interface GetInvoicesParams {
-  page?: number;
-  pageSize?: number;
-  search?: string;
-  status?: string;
-  dateFrom?: string;
-  dateTo?: string;
-}
+import { invoiceSchema, type InvoiceFormData } from "@/lib/schemas/invoices";
+import type { GetInvoicesParams } from "@/lib/types/invoices";
 
 export async function getInvoices({
   page = 1,
@@ -98,14 +74,14 @@ export async function updateInvoice(id: string, data: InvoiceFormData) {
     (sum, item) => sum + item.quantity * item.unitPrice,
     0
   );
-  return db.invoice.update({ data: { ...parsed, totalAmount, id } });
+  return db.invoice.update({ where: { id }, data: { ...parsed, totalAmount } });
 }
 
 export async function updateInvoiceStatus(id: string, status: string) {
   const session = await getServerSession(authConfig);
   if (!session?.user) throw new Error("Unauthorized");
 
-  return db.invoice.update({ data: { id, status } });
+  return db.invoice.update({ where: { id }, data: { status } });
 }
 
 export async function deleteInvoice(id: string) {
