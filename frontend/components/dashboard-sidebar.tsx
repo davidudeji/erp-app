@@ -50,9 +50,17 @@ const navGroups = [
   {
     label: "Sales",
     items: [
-      { title: "Sales Orders", href: "/dashboard/sales-orders", icon: ShoppingCart },
+      {
+        title: "Sales Orders",
+        href: "/dashboard/sales-orders",
+        icon: ShoppingCart,
+      },
       { title: "Customers", href: "/dashboard/customers", icon: Users },
-      { title: "Quotations", href: "/dashboard/quotations", icon: ClipboardList },
+      {
+        title: "Quotations",
+        href: "/dashboard/quotations",
+        icon: ClipboardList,
+      },
       { title: "Point of Sale", href: "/dashboard/pos", icon: Store },
     ],
   },
@@ -61,7 +69,11 @@ const navGroups = [
     items: [
       { title: "Products", href: "/dashboard/products", icon: Package },
       { title: "Categories", href: "/dashboard/categories", icon: Tags },
-      { title: "Stock Movements", href: "/dashboard/stock", icon: ArrowLeftRight },
+      {
+        title: "Stock Movements",
+        href: "/dashboard/stock",
+        icon: ArrowLeftRight,
+      },
       { title: "Suppliers", href: "/dashboard/suppliers", icon: Truck },
       { title: "Warehouses", href: "/dashboard/warehouses", icon: Warehouse },
     ],
@@ -72,34 +84,70 @@ const navGroups = [
       { title: "Invoices", href: "/dashboard/invoices", icon: FileText },
       { title: "Payments", href: "/dashboard/payments", icon: CreditCard },
       { title: "Expenses", href: "/dashboard/expenses", icon: Wallet },
-      { title: "Transactions", href: "/dashboard/transactions", icon: ArrowUpDown },
+      {
+        title: "Transactions",
+        href: "/dashboard/transactions",
+        icon: ArrowUpDown,
+      },
     ],
   },
   {
     label: "Reports",
     items: [
-      { title: "Sales Reports", href: "/dashboard/reports/sales", icon: BarChart2 },
-      { title: "Inventory Reports", href: "/dashboard/reports/inventory", icon: PieChart },
-      { title: "Financial Reports", href: "/dashboard/reports/finance", icon: LineChart },
-      { title: "Customer Reports", href: "/dashboard/reports/customers", icon: UserCheck },
+      {
+        title: "Sales Reports",
+        href: "/dashboard/reports/sales",
+        icon: BarChart2,
+      },
+      {
+        title: "Inventory Reports",
+        href: "/dashboard/reports/inventory",
+        icon: PieChart,
+      },
+      {
+        title: "Financial Reports",
+        href: "/dashboard/reports/finance",
+        icon: LineChart,
+      },
+      {
+        title: "Customer Reports",
+        href: "/dashboard/reports/customers",
+        icon: UserCheck,
+      },
     ],
   },
   {
     label: "CRM",
     items: [
       { title: "Leads", href: "/dashboard/crm/leads", icon: Target },
-      { title: "Opportunities", href: "/dashboard/crm/opportunities", icon: TrendingUp },
-      { title: "Activities", href: "/dashboard/crm/activities", icon: Activity },
+      {
+        title: "Opportunities",
+        href: "/dashboard/crm/opportunities",
+        icon: TrendingUp,
+      },
+      {
+        title: "Activities",
+        href: "/dashboard/crm/activities",
+        icon: Activity,
+      },
     ],
   },
   {
     label: "AI Assistant",
     accent: true,
     items: [
-      { title: "ERP Chat", href: "/dashboard/ai/chat", icon: MessageSquareMore },
+      {
+        title: "ERP Chat",
+        href: "/dashboard/ai/chat",
+        icon: MessageSquareMore,
+      },
       { title: "OCR Processing", href: "/dashboard/ai/ocr", icon: ScanLine },
       { title: "Insights", href: "/dashboard/ai/insights", icon: Lightbulb },
-      { title: "Forecasting", href: "/dashboard/ai/forecasting", icon: TrendingUp },
+      {
+        title: "Forecasting",
+        href: "/dashboard/ai/forecasting",
+        icon: TrendingUp,
+      },
     ],
   },
   {
@@ -130,7 +178,7 @@ export default function DashboardSidebar() {
     <aside
       className={cn(
         "flex h-screen flex-col border-r border-[--erp-border] bg-[--erp-bg-secondary] sidebar-transition overflow-hidden flex-shrink-0",
-        sidebarCollapsed ? "w-[64px]" : "w-[240px]"
+        sidebarCollapsed ? "w-[64px]" : "w-[240px]",
       )}
     >
       {/* LOGO */}
@@ -164,7 +212,9 @@ export default function DashboardSidebar() {
           <button className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-white/5 transition-colors">
             <div className="flex items-center gap-2">
               <div className="h-5 w-5 rounded bg-gradient-to-br from-indigo-400 to-cyan-400 flex-shrink-0" />
-              <span className="text-white/80 font-medium truncate">Acme Corp</span>
+              <span className="text-white/80 font-medium truncate">
+                Company Logo
+              </span>
             </div>
             <ChevronDown className="h-3.5 w-3.5 text-white/40 flex-shrink-0" />
           </button>
@@ -199,8 +249,12 @@ export default function DashboardSidebar() {
               A
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white truncate">David Admin</p>
-              <p className="text-[10px] text-white/40 truncate">Administrator</p>
+              <p className="text-sm font-semibold text-white truncate">
+                David Admin
+              </p>
+              <p className="text-[10px] text-white/40 truncate">
+                Administrator
+              </p>
             </div>
             <Receipt className="h-4 w-4 text-white/30 flex-shrink-0" />
           </div>
@@ -224,7 +278,9 @@ function NavGroup({
   pathname: string;
   collapsed: boolean;
 }) {
-  const hasActive = group.items.some((item) => pathname === item.href || pathname.startsWith(item.href + "/"));
+  const hasActive = group.items.some(
+    (item) => pathname === item.href || pathname.startsWith(item.href + "/"),
+  );
 
   return (
     <div className="mb-1">
@@ -235,14 +291,14 @@ function NavGroup({
             "flex w-full items-center justify-between px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest transition-colors",
             group.accent
               ? "text-cyan-400/70 hover:text-cyan-400"
-              : "text-white/30 hover:text-white/50"
+              : "text-white/30 hover:text-white/50",
           )}
         >
           <span>{group.label}</span>
           <ChevronDown
             className={cn(
               "h-3 w-3 transition-transform duration-200",
-              isOpen ? "rotate-0" : "-rotate-90"
+              isOpen ? "rotate-0" : "-rotate-90",
             )}
           />
         </button>
@@ -258,7 +314,8 @@ function NavGroup({
             className="overflow-hidden space-y-0.5"
           >
             {group.items.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+              const isActive =
+                pathname === item.href || pathname.startsWith(item.href + "/");
               const Icon = item.icon;
 
               return (
@@ -271,7 +328,7 @@ function NavGroup({
                       collapsed ? "justify-center px-0" : "",
                       isActive
                         ? "bg-cyan-400/10 text-cyan-300 shadow-sm"
-                        : "text-white/50 hover:bg-white/5 hover:text-white/90"
+                        : "text-white/50 hover:bg-white/5 hover:text-white/90",
                     )}
                   >
                     {isActive && (
@@ -283,8 +340,8 @@ function NavGroup({
                         isActive
                           ? "text-cyan-300"
                           : group.accent
-                          ? "text-cyan-400/60 group-hover:text-cyan-400"
-                          : "text-white/40 group-hover:text-white/80"
+                            ? "text-cyan-400/60 group-hover:text-cyan-400"
+                            : "text-white/40 group-hover:text-white/80",
                       )}
                     />
                     {!collapsed && (

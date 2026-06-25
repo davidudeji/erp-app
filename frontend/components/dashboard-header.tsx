@@ -31,10 +31,30 @@ import { cn } from "@/lib/utils";
 
 /* ── QUICK ACTIONS ──────────────────────────────────────── */
 const quickActions = [
-  { label: "New Invoice", icon: FileText, shortcut: "⌘N", color: "text-blue-400" },
-  { label: "Add Product", icon: Package, shortcut: "⌘P", color: "text-purple-400" },
-  { label: "Create Order", icon: ShoppingCart, shortcut: "⌘O", color: "text-emerald-400" },
-  { label: "Add Customer", icon: Users, shortcut: "⌘C", color: "text-amber-400" },
+  {
+    label: "New Invoice",
+    icon: FileText,
+    shortcut: "⌘N",
+    color: "text-blue-400",
+  },
+  {
+    label: "Add Product",
+    icon: Package,
+    shortcut: "⌘P",
+    color: "text-purple-400",
+  },
+  {
+    label: "Create Order",
+    icon: ShoppingCart,
+    shortcut: "⌘O",
+    color: "text-emerald-400",
+  },
+  {
+    label: "Add Customer",
+    icon: Users,
+    shortcut: "⌘C",
+    color: "text-amber-400",
+  },
 ];
 
 /* ── NOTIFICATIONS ──────────────────────────────────────── */
@@ -108,7 +128,9 @@ interface DashboardHeaderProps {
   onSidebarToggle: () => void;
 }
 
-export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProps) {
+export default function DashboardHeader({
+  onSidebarToggle,
+}: DashboardHeaderProps) {
   const { theme, toggleTheme } = useUIStore();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -171,7 +193,11 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
           {/* Quick Actions */}
           <div className="relative">
             <button
-              onClick={() => { setQuickActionsOpen(!quickActionsOpen); setNotifOpen(false); setProfileOpen(false); }}
+              onClick={() => {
+                setQuickActionsOpen(!quickActionsOpen);
+                setNotifOpen(false);
+                setProfileOpen(false);
+              }}
               className="hidden sm:flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-2 text-xs font-semibold text-white hover:opacity-90 transition-opacity shadow-lg"
             >
               <Plus className="h-3.5 w-3.5" />
@@ -179,16 +205,25 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
             </button>
             <AnimatePresence>
               {quickActionsOpen && (
-                <DropdownPanel onClose={() => setQuickActionsOpen(false)} className="right-0 w-52 top-10">
+                <DropdownPanel
+                  onClose={() => setQuickActionsOpen(false)}
+                  className="right-0 w-52 top-10 bg-white"
+                >
                   <div className="p-2 space-y-0.5">
                     {quickActions.map((a) => (
                       <button
                         key={a.label}
                         className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/70 hover:bg-white/8 hover:text-white transition-colors"
                       >
-                        <a.icon className={cn("h-4 w-4 flex-shrink-0", a.color)} />
-                        <span className="flex-1 text-left">{a.label}</span>
-                        <span className="text-[10px] text-white/25">{a.shortcut}</span>
+                        <a.icon
+                          className={cn("h-4 w-4 flex-shrink-0", a.color)}
+                        />
+                        <span className="flex-1 text-left text-black">
+                          {a.label}
+                        </span>
+                        <span className="text-[10px] text-black">
+                          {a.shortcut}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -197,41 +232,14 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
             </AnimatePresence>
           </div>
 
-          {/* Theme Switcher */}
-          <button
-            onClick={toggleTheme}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-white/50 hover:bg-white/8 hover:text-white/90 transition-colors"
-            aria-label="Toggle theme"
-          >
-            <AnimatePresence mode="wait">
-              {theme === "dark" ? (
-                <motion.div
-                  key="sun"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Sun className="h-4 w-4 text-amber-300" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="moon"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Moon className="h-4 w-4 text-indigo-400" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
-
           {/* Notifications */}
           <div className="relative">
             <button
-              onClick={() => { setNotifOpen(!notifOpen); setQuickActionsOpen(false); setProfileOpen(false); }}
+              onClick={() => {
+                setNotifOpen(!notifOpen);
+                setQuickActionsOpen(false);
+                setProfileOpen(false);
+              }}
               className="relative flex h-8 w-8 items-center justify-center rounded-lg text-white/50 hover:bg-white/8 hover:text-white/90 transition-colors"
               aria-label="Notifications"
             >
@@ -245,11 +253,18 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
             </button>
             <AnimatePresence>
               {notifOpen && (
-                <DropdownPanel onClose={() => setNotifOpen(false)} className="right-0 w-80 top-10">
+                <DropdownPanel
+                  onClose={() => setNotifOpen(false)}
+                  className="right-0 w-80 top-10 bg-white"
+                >
                   <div className="p-4 border-b border-[--erp-border] flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-white">Notifications</h3>
-                      <p className="text-[11px] text-white/40 mt-0.5">{unreadCount} unread alerts</p>
+                      <h3 className="text-sm font-semibold text-black">
+                        Notifications
+                      </h3>
+                      <p className="text-[11px] text-black/40 mt-0.5">
+                        {unreadCount} unread alerts
+                      </p>
                     </div>
                     <button className="text-[11px] text-cyan-400 hover:text-cyan-300 transition-colors">
                       Mark all read
@@ -257,25 +272,46 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
                   </div>
                   <div className="divide-y divide-[--erp-border] max-h-80 overflow-y-auto">
                     {notifications.map((n) => {
-                      const styles = notifTypeStyles[n.type as keyof typeof notifTypeStyles];
+                      const styles =
+                        notifTypeStyles[n.type as keyof typeof notifTypeStyles];
                       const NIcon = styles.icon;
                       return (
                         <div
                           key={n.id}
                           className={cn(
                             "flex items-start gap-3 px-4 py-3 hover:bg-white/4 transition-colors cursor-pointer",
-                            !n.read && "bg-white/[0.02]"
+                            !n.read && "bg-black/[0.02]",
                           )}
                         >
-                          <div className={cn("mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg", styles.bg)}>
-                            <NIcon className={cn("h-3.5 w-3.5", styles.iconClass)} />
+                          <div
+                            className={cn(
+                              "mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg",
+                              styles.bg,
+                            )}
+                          >
+                            <NIcon
+                              className={cn("h-3.5 w-3.5", styles.iconClass)}
+                            />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-white/90">{n.title}</p>
-                            <p className="text-[11px] text-white/50 mt-0.5 truncate">{n.desc}</p>
-                            <p className="text-[10px] text-white/30 mt-1">{n.time}</p>
+                            <p className="text-sm font-medium text-black/90">
+                              {n.title}
+                            </p>
+                            <p className="text-[11px] text-black/50 mt-0.5 truncate">
+                              {n.desc}
+                            </p>
+                            <p className="text-[10px] text-black/30 mt-1">
+                              {n.time}
+                            </p>
                           </div>
-                          {!n.read && <div className={cn("mt-2 h-1.5 w-1.5 rounded-full flex-shrink-0", styles.dot)} />}
+                          {!n.read && (
+                            <div
+                              className={cn(
+                                "mt-2 h-1.5 w-1.5 rounded-full flex-shrink-0",
+                                styles.dot,
+                              )}
+                            />
+                          )}
                         </div>
                       );
                     })}
@@ -296,24 +332,44 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
           {/* User Profile */}
           <div className="relative">
             <button
-              onClick={() => { setProfileOpen(!profileOpen); setNotifOpen(false); setQuickActionsOpen(false); }}
+              onClick={() => {
+                setProfileOpen(!profileOpen);
+                setNotifOpen(false);
+                setQuickActionsOpen(false);
+              }}
               className="flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-white/8 transition-colors"
             >
               <div className="h-7 w-7 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 flex items-center justify-center text-[11px] font-bold text-white flex-shrink-0">
                 DA
               </div>
               <div className="hidden md:block text-left">
-                <p className="text-[12px] font-semibold text-white/90 leading-tight">David Admin</p>
-                <p className="text-[10px] text-white/40 leading-tight">Administrator</p>
+                <p className="text-[12px] font-semibold text-white/90 leading-tight">
+                  David Admin
+                </p>
+                <p className="text-[10px] text-white/40 leading-tight">
+                  Administrator
+                </p>
               </div>
-              <ChevronDown className={cn("h-3 w-3 text-white/30 hidden md:block transition-transform", profileOpen && "rotate-180")} />
+              <ChevronDown
+                className={cn(
+                  "h-3 w-3 text-white/30 hidden md:block transition-transform",
+                  profileOpen && "rotate-180",
+                )}
+              />
             </button>
             <AnimatePresence>
               {profileOpen && (
-                <DropdownPanel onClose={() => setProfileOpen(false)} className="right-0 w-48 top-10">
+                <DropdownPanel
+                  onClose={() => setProfileOpen(false)}
+                  className="right-0 w-48 top-10"
+                >
                   <div className="p-3 border-b border-[--erp-border]">
-                    <p className="text-sm font-semibold text-white">David Admin</p>
-                    <p className="text-[11px] text-white/40 mt-0.5">admin@erpsuite.io</p>
+                    <p className="text-sm font-semibold text-white">
+                      David Admin
+                    </p>
+                    <p className="text-[11px] text-white/40 mt-0.5">
+                      admin@erpsuite.io
+                    </p>
                   </div>
                   <div className="p-2 space-y-0.5">
                     {[
@@ -321,7 +377,10 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
                       { icon: Settings, label: "Settings" },
                       { icon: HelpCircle, label: "Help & Support" },
                     ].map((item) => (
-                      <button key={item.label} className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/60 hover:bg-white/8 hover:text-white transition-colors">
+                      <button
+                        key={item.label}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/60 hover:bg-white/8 hover:text-white transition-colors"
+                      >
                         <item.icon className="h-3.5 w-3.5" />
                         {item.label}
                       </button>
@@ -403,8 +462,12 @@ export default function DashboardHeader({ onSidebarToggle }: DashboardHeaderProp
                 </div>
               </div>
               <div className="px-4 py-2.5 border-t border-[--erp-border] flex items-center gap-4 text-[10px] text-white/25">
-                <span><kbd className="font-mono">↵</kbd> to search</span>
-                <span><kbd className="font-mono">Esc</kbd> to close</span>
+                <span>
+                  <kbd className="font-mono">↵</kbd> to search
+                </span>
+                <span>
+                  <kbd className="font-mono">Esc</kbd> to close
+                </span>
               </div>
             </motion.div>
           </>
@@ -443,7 +506,7 @@ function DropdownPanel({
       transition={{ duration: 0.15 }}
       className={cn(
         "absolute z-30 rounded-2xl border border-[--erp-border] bg-[--erp-bg-elevated] shadow-2xl overflow-hidden",
-        className
+        className,
       )}
     >
       {children}

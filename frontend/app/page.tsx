@@ -20,7 +20,6 @@ import {
 import { useState } from "react";
 
 export default function HomePage() {
-  const [dark, setDark] = useState(true);
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -30,14 +29,6 @@ export default function HomePage() {
       router.push("/dashboard");
     }
   }, [status, router]);
-
-  useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [dark]);
 
   return (
     <main className="min-h-screen overflow-hidden bg-white text-zinc-900 transition-colors duration-300 dark:bg-[#061018] dark:text-white">
@@ -86,17 +77,9 @@ export default function HomePage() {
           {/* ACTIONS */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setDark(!dark)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-xl transition hover:border-cyan-400/40 cursor-pointer "
+              onClick={() => router.push("/login")}
+              className="hidden rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.03] md:block cursor-pointer "
             >
-              {dark ? (
-                <SunMedium className="h-5 w-5 text-cyan-300" />
-              ) : (
-                <Moon className="h-5 w-5 text-zinc-700" />
-              )}
-            </button>
-
-            <button  onClick={() => router.push("/login")} className="hidden rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.03] md:block cursor-pointer ">
               Get Started
             </button>
           </div>
@@ -127,9 +110,9 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-              ERP Suite unifies inventory, POS, finance, operations,
-              analytics, and enterprise workflows into one intelligent
-              operating system built for scale.
+              ERP Suite unifies inventory, POS, finance, operations, analytics,
+              and enterprise workflows into one intelligent operating system
+              built for scale.
             </p>
 
             {/* CTA */}
@@ -191,11 +174,7 @@ export default function HomePage() {
               <div className="grid gap-5 p-6">
                 {/* analytics */}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <Card
-                    icon={<BarChart3 />}
-                    title="Revenue"
-                    value="$1.8M"
-                  />
+                  <Card icon={<BarChart3 />} title="Revenue" value="$1.8M" />
                   <Card
                     icon={<Workflow />}
                     title="Operations"
