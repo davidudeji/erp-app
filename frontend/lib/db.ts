@@ -22,13 +22,19 @@ interface CountArgs {
   where?: WhereClause;
 }
 
+interface UpdateArgs {
+  where?: WhereClause;
+  data?: unknown;
+}
+
 function createModel() {
   return {
-    findUnique: async (_args: FindUniqueArgs) => null,
-    findMany: async (_args: FindManyArgs) => [],
-    count: async (_args: CountArgs) => 0,
+    findUnique: async <T = any>(_args: FindUniqueArgs): Promise<T | null> =>
+      null,
+    findMany: async <T = any>(_args: FindManyArgs): Promise<T[]> => [],
+    count: async (_args: CountArgs): Promise<number> => 0,
     create: async (args: { data: unknown }) => args.data,
-    update: async (args: { data: unknown }) => args.data,
+    update: async (args: UpdateArgs) => args.data,
     delete: async (_args: FindUniqueArgs) => null,
   };
 }

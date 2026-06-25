@@ -29,7 +29,10 @@ async function ProductsContent({ searchParams }: PageProps) {
   const dateTo = params.dateTo ?? "";
 
   const userId = session.user.id;
-  const dbUser = await db.user.findUnique({ where: { id: userId }, select: { tenantId: true } });
+  const dbUser = await db.user.findUnique<{ tenantId?: string | null }>({
+    where: { id: userId },
+    select: { tenantId: true },
+  });
   const tenantId = dbUser?.tenantId ?? "";
 
   const [data, categories] = await Promise.all([
@@ -45,7 +48,9 @@ async function ProductsContent({ searchParams }: PageProps) {
 
   return (
     <ProductsClient
-      products={data.products as Parameters<typeof ProductsClient>[0]["products"]}
+      products={
+        data.products as Parameters<typeof ProductsClient>[0]["products"]
+      }
       categories={categories}
       total={data.total}
       page={data.page}
@@ -61,13 +66,15 @@ async function ProductsContent({ searchParams }: PageProps) {
 
 export default async function ProductsPage(props: PageProps) {
   return (
-    <Suspense fallback={
-      <div className="space-y-6 p-6 md:p-8">
-        <Skeleton className="h-10 w-48" />
-        <Skeleton className="h-20 w-full" />
-        <Skeleton className="h-64 w-full" />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="space-y-6 p-6 md:p-8">
+          <Skeleton className="h-10 w-48" />
+          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+      }
+    >
       <ProductsContent {...props} />
     </Suspense>
   );

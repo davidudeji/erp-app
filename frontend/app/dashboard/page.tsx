@@ -10,6 +10,7 @@ import {
   FileText,
   Sparkles,
   ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 import KpiCard, { type KpiCardProps } from "@/components/kpi-card";
 import RevenueChart from "@/components/revenue-chart";
@@ -20,8 +21,7 @@ import CalendarWidget from "@/components/calendar-widget";
 import AiAssistantPanel from "@/components/ai-assistant-panel";
 
 /* ── KPI DATA ────────────────────────────────────────────── */
-const kpiCards: Omit<KpiCardProps, "icon"> &
-  { icon: React.ComponentType<{ className?: string }> }[] = [
+const kpiCards: Array<Omit<KpiCardProps, "icon"> & { icon: LucideIcon }> = [
   {
     title: "Total Revenue",
     value: "$124,650",
@@ -38,7 +38,9 @@ const kpiCards: Omit<KpiCardProps, "icon"> &
     value: "1,245",
     daily: "42",
     change: 8.2,
-    sparkData: [800, 860, 820, 900, 950, 920, 980, 1020, 1060, 1100, 1180, 1245],
+    sparkData: [
+      800, 860, 820, 900, 950, 920, 980, 1020, 1060, 1100, 1180, 1245,
+    ],
     icon: ShoppingCart,
     accentColor: "#818cf8",
     accentClass: "bg-indigo-400/10",
@@ -50,7 +52,9 @@ const kpiCards: Omit<KpiCardProps, "icon"> &
     subtitle: "Low stock: 12 items",
     change: -2.3,
     isPositive: false,
-    sparkData: [3800, 3750, 3700, 3640, 3590, 3540, 3510, 3490, 3470, 3460, 3450, 3456],
+    sparkData: [
+      3800, 3750, 3700, 3640, 3590, 3540, 3510, 3490, 3470, 3460, 3450, 3456,
+    ],
     icon: Package,
     accentColor: "#f59e0b",
     accentClass: "bg-amber-400/10",
@@ -95,7 +99,10 @@ const kpiCards: Omit<KpiCardProps, "icon"> &
 /* ── STAGGER VARIANTS ────────────────────────────────────── */
 const container = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.07, delayChildren: 0.1 },
+  },
 };
 const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
 
@@ -103,7 +110,6 @@ const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
 export default function DashboardPage() {
   return (
     <div className="space-y-6 p-5 md:p-7 max-w-[1600px] mx-auto">
-
       {/* ── PAGE HEADER ─────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
@@ -143,7 +149,11 @@ export default function DashboardPage() {
         className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
       >
         {kpiCards.map((card) => (
-          <motion.div key={card.title} variants={item} className="xl:col-span-1">
+          <motion.div
+            key={card.title}
+            variants={item}
+            className="xl:col-span-1"
+          >
             <KpiCard {...card} />
           </motion.div>
         ))}
